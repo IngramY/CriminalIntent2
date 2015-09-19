@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">" CriminalIntent2"</string>
-    <string name="crime_title">标题</string>
+    <string name="crime_title">犯罪标题</string>
+    <string name="title">标题</string>
+    <string name="detail">细节</string>
+    <string name="solved">Solved?</string>
 </resources>
