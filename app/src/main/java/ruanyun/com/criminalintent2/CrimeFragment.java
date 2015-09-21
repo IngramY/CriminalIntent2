@@ -5,9 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 /**
@@ -18,6 +22,8 @@ public class CrimeFragment extends Fragment {
     private String TAG = "CrimeFragment";
     private Crime mCrime;
     private EditText edit_title;
+    private Button btn_date;
+    private CheckBox mSolved;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,19 @@ public class CrimeFragment extends Fragment {
 //                Log.i(TAG, "afterTextChanged:---->" + s.toString());
             }
         });
+
+        Log.i(TAG, "Date to string: " + mCrime.getDate().toString());
+        btn_date = (Button) view.findViewById(R.id.btn_date);
+        btn_date.setText(mCrime.getDate().toString());
+
+        mSolved = (CheckBox) view.findViewById(R.id.Solved);
+        mSolved.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i(TAG, "是否选中： " + isChecked);
+            }
+        });
+
 
         return view;
     }
