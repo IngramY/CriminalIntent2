@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ public class CrimeFragment extends Fragment {
     private EditText edit_title;
     private Button btn_date;
     private CheckBox mSolved;
+    private boolean isCheck;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 //                Log.i(TAG, "onTextChanged:---->" + s.toString() + "    start:--->" + start + "    before:--->" + before + "    count:--->" + count);
-                mCrime.setTitle(s.toString());//编辑框中的文字 设置为Crime标题
+                mCrime.setTitle(s.toString());      //编辑框中的文字 设置为Crime标题
             }
 
             @Override
@@ -58,18 +60,19 @@ public class CrimeFragment extends Fragment {
 
         Log.i(TAG, "Date to string: " + mCrime.getDate().toString());
         btn_date = (Button) view.findViewById(R.id.btn_date);
-        btn_date.setText(mCrime.getDate().toString());
+        CharSequence charSequence  = DateFormat.format("EEEE,MMM dd, yyyy", mCrime.getDate());
+        btn_date.setText(charSequence);
+        btn_date.setEnabled(false);
 
         mSolved = (CheckBox) view.findViewById(R.id.Solved);
+        Log.i(TAG, "1.是否选中： " + isCheck);
         mSolved.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.i(TAG, "是否选中： " + isChecked);
+                Log.i(TAG, "2.是否选中： " + isChecked);
+                isCheck = isChecked;
             }
         });
-
-
         return view;
     }
-
 }
