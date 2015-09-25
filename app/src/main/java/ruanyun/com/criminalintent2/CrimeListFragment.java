@@ -14,7 +14,6 @@ import java.util.ArrayList;
  */
 public class CrimeListFragment extends ListFragment {
     private String TAG = "CrimeListActivity";
-
     private ArrayList<Crime> mCrimes;
 
     @Override
@@ -34,4 +33,5 @@ public class CrimeListFragment extends ListFragment {
         Crime c = (Crime) getListAdapter().getItem(position);
 
     }
+
 }

@@ -1,7 +1,6 @@
 package ruanyun.com.criminalintent2;
 
 import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.UUID;
 
