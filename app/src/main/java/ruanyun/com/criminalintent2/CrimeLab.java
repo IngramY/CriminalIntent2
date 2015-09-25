@@ -17,7 +17,6 @@ public class CrimeLab {
     private CrimeLab(Context appContext){
         mAppContext = appContext;
         mCrimes = new ArrayList<Crime>();
-
         //初始化crime 数据
         for (int i = 0; i < 100; i++){
             Crime c = new Crime();
