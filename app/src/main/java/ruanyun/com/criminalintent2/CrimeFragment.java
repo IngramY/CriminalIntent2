@@ -15,10 +15,15 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.util.UUID;
+
 /**
  * Created by Administrator on 2015/9/18.
  */
 public class CrimeFragment extends Fragment {
+
+    public static final String EXTRA_CRIME_ID =
+            "ruanyun.com.criminalintent2.crime_id";
 
     private String TAG = "CrimeFragment";
     private Crime mCrime;
@@ -27,10 +32,21 @@ public class CrimeFragment extends Fragment {
     private CheckBox mSolved;
     private boolean isCheck;
 
+    public static CrimeFragment newInstance(UUID crimeId){
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_CRIME_ID, crimeId);
+        CrimeFragment fragment = new CrimeFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCrime = new Crime();
+
+//        UUID crimeId = (UUID) getActivity().getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        UUID crimeId = (UUID) getArguments().getSerializable(EXTRA_CRIME_ID);
+        mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);//获取传递过来的Crime
     }
 
     @Nullable
@@ -40,6 +56,8 @@ public class CrimeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_crime, container, false);
 
         edit_title = (EditText) view.findViewById(R.id.crime_edit);
+        edit_title.setText(mCrime.getTitle());//根据传入的值设置标题
+        Log.i(TAG, "crimeFragment ---->  " + mCrime.getTitle());
         edit_title.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -66,6 +84,7 @@ public class CrimeFragment extends Fragment {
 
         mSolved = (CheckBox) view.findViewById(R.id.Solved);
         Log.i(TAG, "1.是否选中： " + isCheck);
+        mSolved.setChecked(mCrime.getSolved());//根据传入的值设置是否选中
         mSolved.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
